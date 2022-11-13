@@ -84,13 +84,20 @@ const getDashboard = (req, res) => {
 
 const eCommerceReg = (req, res) => {
   console.log(req.body);
-  let { firstname, lastname, email, password, username } = req.body;
+  let { firstname, lastname, email, password } = req.body;
 
   let form = new eCommerceUserModel(req.body);
   form.save().then((saved) => {
-    res
-      .send({ message: "Account Successfully Created", status: true, saved })
-      .status(200);
+    if(saved){
+      res
+        .send({ message: "Account Successfully Created", status: true, saved })
+        .status(200);
+
+    }else{
+      res.send({status:false, message:"There was an error"})
+    }
+  }).catch(err=>{
+    res.send({message: "This is a catch error"})
   });
 };
 
