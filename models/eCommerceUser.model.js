@@ -32,4 +32,4 @@ eCommerceUser.methods.validatePassword = function (password, callback) {
 };
 const eCommerceUserModel = mongoose.model("eCommerceUser", eCommerceUser)
 
-module.exports = eCommerceUserModel
+module.exports = eCommerceUserModel 
