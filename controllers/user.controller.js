@@ -1,6 +1,6 @@
 const eCommerceUserModel = require("../models/eCommerceUser.model");
 
-const transactionModel = require("../models/transactions.model")
+const transactionModel = require("../models/transactions.model");
 
 const signin = (req, res) => {
   console.log(req.body);
@@ -71,11 +71,13 @@ const getDashboard = (req, res) => {
             message: "There has been an error please try logging in again",
           });
         } else {
-          res.send({
-            status: true,
-            message: "User Authenticated Successfully",
-            userDetails,
-          }).status(200);
+          res
+            .send({
+              status: true,
+              message: "User Authenticated Successfully",
+              userDetails,
+            })
+            .status(200);
         }
       });
     }
@@ -87,38 +89,45 @@ const eCommerceReg = (req, res) => {
   let { firstname, lastname, email, password } = req.body;
 
   let form = new eCommerceUserModel(req.body);
-  form.save().then((saved) => {
-    if(saved){
-      res
-        .send({ message: "Account Successfully Created", status: true, saved })
-        .status(200);
+  form.save();
+  res
+    .send({ message: "Account Successfully Created", status: true, saved })
+    .status(200);
+};
 
-    }else{
-      res.send({status:false, message:"There was an error"})
-    }
-  }).catch(err=>{
-    res.send({message: "This is a catch error"})
+const transactions = (req, res) => {
+  console.log(req.body);
+  let form = new transactionModel(req.body);
+  form.save((saved) => {
+    res
+      .send({ message: "Purchase made Successfully", status: true })
+      .status(200);
   });
 };
 
-const transactions =(req, res)=>{
-  console.log(req.body)
-  let form = new transactionModel(req.body)
-  form.save((saved)=>{
-    res.send({message: "Purchase made Successfully", status: true}).status(200)
-  })
-}
+const getTransactionHistory = (req, res) => {
+  console.log(req.body);
 
-const getTransactionHistory =(req, res)=>{
-  console.log(req.body)
-  
-  eCommerceUserModel.find({_id:req.body.userID}, (err, result)=>{
-    if(err){
-      res.send({status:false, message: "An error was encountered, please try again later"})
-    }else{
-      res.send({status: true, result, message:"All Transactions Details successfully collected"})
+  eCommerceUserModel.find({ _id: req.body.userID }, (err, result) => {
+    if (err) {
+      res.send({
+        status: false,
+        message: "An error was encountered, please try again later",
+      });
+    } else {
+      res.send({
+        status: true,
+        result,
+        message: "All Transactions Details successfully collected",
+      });
     }
-  })
-}
+  });
+};
 
-module.exports = { signin, getDashboard, eCommerceReg, getTransactionHistory, transactions };
+module.exports = {
+  signin,
+  getDashboard,
+  eCommerceReg,
+  getTransactionHistory,
+  transactions,
+};
