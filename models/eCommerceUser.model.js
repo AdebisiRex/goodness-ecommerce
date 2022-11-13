@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs")
 
 const eCommerceUser = mongoose.Schema({
     firstname: {type:String, required:true},

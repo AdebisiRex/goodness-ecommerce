@@ -86,13 +86,11 @@ const getDashboard = (req, res) => {
 
 const eCommerceReg = (req, res) => {
   console.log(req.body);
-  let { firstname, lastname, email, password } = req.body;
+  // let { firstname, lastname, email, password } = req.body;
 
   let form = new eCommerceUserModel(req.body);
   form.save();
-  res
-    .send({ message: "Account Successfully Created", status: true, saved })
-    .status(200);
+  res.send({ message: "Account Successfully Created", status: true, saved }).status(200);
 };
 
 const transactions = (req, res) => {
