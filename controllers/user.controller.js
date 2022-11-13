@@ -108,7 +108,7 @@ const transactions = (req, res) => {
 const getTransactionHistory = (req, res) => {
   console.log(req.body);
 
-  eCommerceUserModel.find({ _id: req.body.userID }, (err, result) => {
+  eCommerceUserModel.find({userID: req.body.userID }, (err, result) => {
     if (err) {
       res.send({
         status: false,
