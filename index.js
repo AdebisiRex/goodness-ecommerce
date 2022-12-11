@@ -18,8 +18,11 @@ app.listen(PORT, () => {
 const userRoute = require("./routes/user.route")
 app.use("/user", userRoute);
 
+app.get("/", (req, res)=>{
+    res.send("They don't know fr")
+})
 
 
-// mongoose.connect(URI, (err) => {
-//     console.log("Mongoose is now online");
-// });
+mongoose.connect(URI, (err) => {
+    console.log("Mongoose is now online");
+});
